@@ -1,0 +1,103 @@
+[Client / Frontend / Postman]
+        |
+        | HTTP Request (GET, POST, PUT, DELETE)
+        v
++----------------------------------------------------+
+|               PatientController                   |
++----------------------------------------------------+
+| getAllPatients()                                   |
+|   └─> Calls: patientService.getPatients()         |
+|       └─> Task: fetch all patients, map to DTOs  |
+|                                                    |
+| createPatient(PatientRequestDTO)                  |
+|   ├─> Validates input DTO                          |
+|   └─> Calls: patientService.createPatient()       |
+|       ├─> Task: check duplicate email            |
+|       ├─> Calls: patientRepository.save()         |
+|       │    └─> Saves patient in Database         |
+|       ├─> Calls: billingServiceGrpcClient.createBillingAccount()
+|       │    └─> Builds BillingRequest protobuf
+|       │    └─> Calls gRPC: BillingServiceImpl.createBillingRequest()
+|       │         └─> Returns BillingResponse
+|       ├─> Calls: kafkaProducer.sendEvent()
+|       │    └─> Converts patient → PatientEvent
+|       │    └─> Sends byte[] to Kafka topic
+|       └─> Converts saved Patient → PatientResponseDTO
+|                                                    |
+| updatePatient(UUID id, PatientRequestDTO)         |
+|   └─> Calls: patientService.updatePatient()      |
+|       ├─> Fetch patient by ID                     |
+|       ├─> Check duplicate email                  |
+|       ├─> Update fields & save via patientRepository.save()
+|       └─> Convert updated Patient → PatientResponseDTO
+|                                                    |
+| deletePatient(UUID id)                             |
+|   └─> Calls: patientService.deletePatient()      |
+|       ├─> Fetch patient by ID                     |
+|       └─> Delete patient via patientRepository.deleteById()
++----------------------------------------------------+
+                      |
+                      v
++----------------------------------------------------+
+|               PatientService                      |
++----------------------------------------------------+
+| getPatients()                                     |
+|   └─> Calls: patientRepository.findAll()         |
+|       └─> Task: convert each Patient → DTO via PatientMapper.toDTO()
+|                                                    |
+| createPatient(PatientRequestDTO)                  |
+|   ├─> Calls: patientRepository.existsByEmail()   |
+|   │    └─> Throws EmailAlreadyExistsException if duplicate
+|   ├─> Calls: patientRepository.save(PatientMapper.toModel(dto))
+|   ├─> Calls: billingServiceGrpcClient.createBillingAccount()
+|   ├─> Calls: kafkaProducer.sendEvent()
+|   └─> Calls: PatientMapper.toDTO() → returns DTO
+|                                                    |
+| updatePatient(UUID id, PatientRequestDTO)         |
+|   ├─> Calls: patientRepository.findById(id)
+|   ├─> Calls: patientRepository.existsByEmail(email)
+|   ├─> Updates fields & saves patient
+|   └─> Calls: PatientMapper.toDTO()
+|                                                    |
+| deletePatient(UUID id)                             |
+|   ├─> Calls: patientRepository.findById(id)
+|   └─> Calls: patientRepository.deleteById()
++----------------------------------------------------+
+                      |
+                      v
++----------------------------------------------------+
+|               PatientRepository                   |
++----------------------------------------------------+
+| existsByEmail(email)                               |
+| existsByEmailAndIdNot(email, id)                  |
+| findAll()                                         |
+| save(Patient)                                     |
+| deleteById(UUID)                                  |
++----------------------------------------------------+
+                      |
+                      v
++----------------------------------------------------+
+|                    Database                       |
++----------------------------------------------------+
+| Stores Patient entities                            |
++----------------------------------------------------+
+
+-------------------------
+Billing Service Flow
+-------------------------
+PatientService.createPatient()
+   └─> billingServiceGrpcClient.createBillingAccount(patient.id, name, email)
+       ├─> Builds BillingRequest protobuf
+       └─> Calls gRPC stub → BillingServiceImpl.createBillingRequest()
+            └─> Processes request, returns BillingResponse
+       └─> Returns response to PatientService
+
+-------------------------
+Kafka Event Flow
+-------------------------
+PatientService.createPatient()
+   └─> kafkaProducer.sendEvent(patient)
+       ├─> Converts patient → PatientEvent protobuf
+       ├─> Serializes to byte[]
+       └─> Publishes to Kafka topic "patient"
+            └─> Downstream microservices consume asynchronously

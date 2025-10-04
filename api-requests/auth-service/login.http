@@ -1,0 +1,3 @@
+GET http://localhost:4004/auth/validate/access
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIiJ9.eyJzdWIiOiJ0ZXN0dXNlckB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTQxOTM3MSwiZXhwIjoxNzU5NDIxMTcxfQ.Bu0zeZWmakaczCQ5XFFAzLZO6vB9ORA-rVKqEHcPYXg

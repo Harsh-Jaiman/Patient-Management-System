@@ -1,0 +1,2003 @@
+{
+ "Resources": {
+  "PatientManagementVPC522067E7": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "PatientManagementVPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/Resource"
+   }
+  },
+  "PatientManagementVPCPublicSubnet1SubnetC8305E9D": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-north-1a",
+    "CidrBlock": "10.0.0.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/Subnet"
+   }
+  },
+  "PatientManagementVPCPublicSubnet1RouteTableA48D3D3E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/RouteTable"
+   }
+  },
+  "PatientManagementVPCPublicSubnet1RouteTableAssociationA39A24A4": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPublicSubnet1RouteTableA48D3D3E"
+    },
+    "SubnetId": {
+     "Ref": "PatientManagementVPCPublicSubnet1SubnetC8305E9D"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "PatientManagementVPCPublicSubnet1DefaultRoute1E407ABB": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "PatientManagementVPCIGWA0746919"
+    },
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPublicSubnet1RouteTableA48D3D3E"
+    }
+   },
+   "DependsOn": [
+    "PatientManagementVPCVPCGW1FFEFAEB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "PatientManagementVPCPublicSubnet1EIPC113BD7F": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/EIP"
+   }
+  },
+  "PatientManagementVPCPublicSubnet1NATGatewayB9CF9F92": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "PatientManagementVPCPublicSubnet1EIPC113BD7F",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "PatientManagementVPCPublicSubnet1SubnetC8305E9D"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "PatientManagementVPCPublicSubnet1DefaultRoute1E407ABB",
+    "PatientManagementVPCPublicSubnet1RouteTableAssociationA39A24A4"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/NATGateway"
+   }
+  },
+  "PatientManagementVPCPublicSubnet2Subnet07CEC558": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-north-1b",
+    "CidrBlock": "10.0.64.0/18",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/Subnet"
+   }
+  },
+  "PatientManagementVPCPublicSubnet2RouteTable391C4D34": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/RouteTable"
+   }
+  },
+  "PatientManagementVPCPublicSubnet2RouteTableAssociationCAC8BA09": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPublicSubnet2RouteTable391C4D34"
+    },
+    "SubnetId": {
+     "Ref": "PatientManagementVPCPublicSubnet2Subnet07CEC558"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "PatientManagementVPCPublicSubnet2DefaultRoute2DC1F916": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "PatientManagementVPCIGWA0746919"
+    },
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPublicSubnet2RouteTable391C4D34"
+    }
+   },
+   "DependsOn": [
+    "PatientManagementVPCVPCGW1FFEFAEB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "PatientManagementVPCPublicSubnet2EIP208E0C4A": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/EIP"
+   }
+  },
+  "PatientManagementVPCPublicSubnet2NATGateway28B0784D": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "PatientManagementVPCPublicSubnet2EIP208E0C4A",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "PatientManagementVPCPublicSubnet2Subnet07CEC558"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "PatientManagementVPCPublicSubnet2DefaultRoute2DC1F916",
+    "PatientManagementVPCPublicSubnet2RouteTableAssociationCAC8BA09"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/NATGateway"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet1Subnet05B10E79": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-north-1a",
+    "CidrBlock": "10.0.128.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/Subnet"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet1RouteTableE0FA4385": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/RouteTable"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet1RouteTableAssociationAA604973": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPrivateSubnet1RouteTableE0FA4385"
+    },
+    "SubnetId": {
+     "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet1DefaultRouteC24DADA9": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "PatientManagementVPCPublicSubnet1NATGatewayB9CF9F92"
+    },
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPrivateSubnet1RouteTableE0FA4385"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet2Subnet8A2E409C": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "eu-north-1b",
+    "CidrBlock": "10.0.192.0/18",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/Subnet"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet2RouteTableBC0C3BB6": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/RouteTable"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet2RouteTableAssociationC55EBEF2": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPrivateSubnet2RouteTableBC0C3BB6"
+    },
+    "SubnetId": {
+     "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "PatientManagementVPCPrivateSubnet2DefaultRoute98121A2D": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "PatientManagementVPCPublicSubnet2NATGateway28B0784D"
+    },
+    "RouteTableId": {
+     "Ref": "PatientManagementVPCPrivateSubnet2RouteTableBC0C3BB6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "PatientManagementVPCIGWA0746919": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "PatientManagementVPC"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/IGW"
+   }
+  },
+  "PatientManagementVPCVPCGW1FFEFAEB": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "PatientManagementVPCIGWA0746919"
+    },
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementVPC/VPCGW"
+   }
+  },
+  "PatientManagementCluster98E10F8D": {
+   "Type": "AWS::ECS::Cluster",
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementCluster/Resource"
+   }
+  },
+  "PatientManagementNamespace4B3BB235": {
+   "Type": "AWS::ServiceDiscovery::PrivateDnsNamespace",
+   "Properties": {
+    "Name": "pm.local",
+    "Vpc": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientManagementNamespace/Resource"
+   }
+  },
+  "AuthServiceTaskTaskRoleE466B974": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthServiceTask/TaskRole/Resource"
+   }
+  },
+  "AuthServiceTask82E6680D": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_DATASOURCE_USERNAME",
+        "Value": "admin_user"
+       },
+       {
+        "Name": "SPRING_SQL_INIT_MODE",
+        "Value": "always"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_URL",
+        "Value": "jdbc:postgresql://auth-service-db:5432/db"
+       },
+       {
+        "Name": "JWT_SECRET",
+        "Value": "9f8a!Dk3@pXyQ7zR1#LmWt6Vb2$GhJ0k"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_PASSWORD",
+        "Value": "password"
+       },
+       {
+        "Name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
+        "Value": "update"
+       }
+      ],
+      "Essential": true,
+      "Image": "867344477207.dkr.ecr.eu-north-1.amazonaws.com/auth-service:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "AuthServiceLogGroup34125B38"
+        },
+        "awslogs-stream-prefix": "auth-service",
+        "awslogs-region": "eu-north-1"
+       }
+      },
+      "Name": "auth-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4005,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "AuthServiceTaskExecutionRoleA1258495",
+      "Arn"
+     ]
+    },
+    "Family": "AwsDeploymentStackAuthServiceTask58A5408F",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "AuthServiceTaskTaskRoleE466B974",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthServiceTask/Resource"
+   }
+  },
+  "AuthServiceTaskExecutionRoleA1258495": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthServiceTask/ExecutionRole/Resource"
+   }
+  },
+  "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "AuthServiceLogGroup34125B38",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3",
+    "Roles": [
+     {
+      "Ref": "AuthServiceTaskExecutionRoleA1258495"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthServiceTask/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "AuthServiceLogGroup34125B38": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/auth-service",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthServiceLogGroup/Resource"
+   }
+  },
+  "AuthService3C2B741A": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "PatientManagementCluster98E10F8D"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "AuthServiceSecurityGroup67F2FA7D",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+       },
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+       }
+      ]
+     }
+    },
+    "ServiceName": "auth-service",
+    "ServiceRegistries": [
+     {
+      "RegistryArn": {
+       "Fn::GetAtt": [
+        "AuthServiceCloudmapServiceBA6F14E5",
+        "Arn"
+       ]
+      }
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "AuthServiceTask82E6680D"
+    }
+   },
+   "DependsOn": [
+    "AuthServiceTaskTaskRoleE466B974"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthService/Service"
+   }
+  },
+  "AuthServiceCloudmapServiceBA6F14E5": {
+   "Type": "AWS::ServiceDiscovery::Service",
+   "Properties": {
+    "DnsConfig": {
+     "DnsRecords": [
+      {
+       "TTL": 60,
+       "Type": "A"
+      }
+     ],
+     "NamespaceId": {
+      "Fn::GetAtt": [
+       "PatientManagementNamespace4B3BB235",
+       "Id"
+      ]
+     },
+     "RoutingPolicy": "MULTIVALUE"
+    },
+    "HealthCheckCustomConfig": {
+     "FailureThreshold": 1
+    },
+    "Name": "auth-service",
+    "NamespaceId": {
+     "Fn::GetAtt": [
+      "PatientManagementNamespace4B3BB235",
+      "Id"
+     ]
+    }
+   },
+   "DependsOn": [
+    "AuthServiceTaskTaskRoleE466B974"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthService/CloudmapService/Resource"
+   }
+  },
+  "AuthServiceSecurityGroup67F2FA7D": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AwsDeploymentStack/AuthService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "DependsOn": [
+    "AuthServiceTaskTaskRoleE466B974"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AuthService/SecurityGroup/Resource"
+   }
+  },
+  "BillingServiceTaskTaskRole7A547BBF": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingServiceTask/TaskRole/Resource"
+   }
+  },
+  "BillingServiceTask30D9C66E": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Essential": true,
+      "Image": "867344477207.dkr.ecr.eu-north-1.amazonaws.com/billing-service:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "BillingServiceLogGroupDD61E740"
+        },
+        "awslogs-stream-prefix": "billing-service",
+        "awslogs-region": "eu-north-1"
+       }
+      },
+      "Name": "billing-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4001,
+        "Protocol": "tcp"
+       },
+       {
+        "ContainerPort": 9001,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "BillingServiceTaskExecutionRole11FE8DE2",
+      "Arn"
+     ]
+    },
+    "Family": "AwsDeploymentStackBillingServiceTask4D4BC3AA",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "BillingServiceTaskTaskRole7A547BBF",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingServiceTask/Resource"
+   }
+  },
+  "BillingServiceTaskExecutionRole11FE8DE2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingServiceTask/ExecutionRole/Resource"
+   }
+  },
+  "BillingServiceTaskExecutionRoleDefaultPolicy4F4033C9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "BillingServiceLogGroupDD61E740",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "BillingServiceTaskExecutionRoleDefaultPolicy4F4033C9",
+    "Roles": [
+     {
+      "Ref": "BillingServiceTaskExecutionRole11FE8DE2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingServiceTask/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "BillingServiceLogGroupDD61E740": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/billing-service",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingServiceLogGroup/Resource"
+   }
+  },
+  "BillingServiceFEB36D90": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "PatientManagementCluster98E10F8D"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "BillingServiceSecurityGroup3783AD35",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+       },
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+       }
+      ]
+     }
+    },
+    "ServiceName": "billing-service",
+    "ServiceRegistries": [
+     {
+      "RegistryArn": {
+       "Fn::GetAtt": [
+        "BillingServiceCloudmapService9691C754",
+        "Arn"
+       ]
+      }
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "BillingServiceTask30D9C66E"
+    }
+   },
+   "DependsOn": [
+    "BillingServiceTaskTaskRole7A547BBF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingService/Service"
+   }
+  },
+  "BillingServiceCloudmapService9691C754": {
+   "Type": "AWS::ServiceDiscovery::Service",
+   "Properties": {
+    "DnsConfig": {
+     "DnsRecords": [
+      {
+       "TTL": 60,
+       "Type": "A"
+      }
+     ],
+     "NamespaceId": {
+      "Fn::GetAtt": [
+       "PatientManagementNamespace4B3BB235",
+       "Id"
+      ]
+     },
+     "RoutingPolicy": "MULTIVALUE"
+    },
+    "HealthCheckCustomConfig": {
+     "FailureThreshold": 1
+    },
+    "Name": "billing-service",
+    "NamespaceId": {
+     "Fn::GetAtt": [
+      "PatientManagementNamespace4B3BB235",
+      "Id"
+     ]
+    }
+   },
+   "DependsOn": [
+    "BillingServiceTaskTaskRole7A547BBF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingService/CloudmapService/Resource"
+   }
+  },
+  "BillingServiceSecurityGroup3783AD35": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AwsDeploymentStack/BillingService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "DependsOn": [
+    "BillingServiceTaskTaskRole7A547BBF"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/BillingService/SecurityGroup/Resource"
+   }
+  },
+  "AnalyticsServiceTaskTaskRole1ABB10CB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsServiceTask/TaskRole/Resource"
+   }
+  },
+  "AnalyticsServiceTaskC3AFBC47": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+        "Value": "kafka:9092"
+       }
+      ],
+      "Essential": true,
+      "Image": "867344477207.dkr.ecr.eu-north-1.amazonaws.com/analytics-service:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "AnalyticsServiceLogGroupBD82F12A"
+        },
+        "awslogs-stream-prefix": "analytics-service",
+        "awslogs-region": "eu-north-1"
+       }
+      },
+      "Name": "analytics-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4002,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "AnalyticsServiceTaskExecutionRoleBAF654B2",
+      "Arn"
+     ]
+    },
+    "Family": "AwsDeploymentStackAnalyticsServiceTask3ED97BFE",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "AnalyticsServiceTaskTaskRole1ABB10CB",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsServiceTask/Resource"
+   }
+  },
+  "AnalyticsServiceTaskExecutionRoleBAF654B2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsServiceTask/ExecutionRole/Resource"
+   }
+  },
+  "AnalyticsServiceTaskExecutionRoleDefaultPolicy99868928": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "AnalyticsServiceLogGroupBD82F12A",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AnalyticsServiceTaskExecutionRoleDefaultPolicy99868928",
+    "Roles": [
+     {
+      "Ref": "AnalyticsServiceTaskExecutionRoleBAF654B2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsServiceTask/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "AnalyticsServiceLogGroupBD82F12A": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/analytics-service",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsServiceLogGroup/Resource"
+   }
+  },
+  "AnalyticsServiceCD38C492": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "PatientManagementCluster98E10F8D"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "AnalyticsServiceSecurityGroupBA6AE98A",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+       },
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+       }
+      ]
+     }
+    },
+    "ServiceName": "analytics-service",
+    "ServiceRegistries": [
+     {
+      "RegistryArn": {
+       "Fn::GetAtt": [
+        "AnalyticsServiceCloudmapService37E505E7",
+        "Arn"
+       ]
+      }
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "AnalyticsServiceTaskC3AFBC47"
+    }
+   },
+   "DependsOn": [
+    "AnalyticsServiceTaskTaskRole1ABB10CB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsService/Service"
+   }
+  },
+  "AnalyticsServiceCloudmapService37E505E7": {
+   "Type": "AWS::ServiceDiscovery::Service",
+   "Properties": {
+    "DnsConfig": {
+     "DnsRecords": [
+      {
+       "TTL": 60,
+       "Type": "A"
+      }
+     ],
+     "NamespaceId": {
+      "Fn::GetAtt": [
+       "PatientManagementNamespace4B3BB235",
+       "Id"
+      ]
+     },
+     "RoutingPolicy": "MULTIVALUE"
+    },
+    "HealthCheckCustomConfig": {
+     "FailureThreshold": 1
+    },
+    "Name": "analytics-service",
+    "NamespaceId": {
+     "Fn::GetAtt": [
+      "PatientManagementNamespace4B3BB235",
+      "Id"
+     ]
+    }
+   },
+   "DependsOn": [
+    "AnalyticsServiceTaskTaskRole1ABB10CB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsService/CloudmapService/Resource"
+   }
+  },
+  "AnalyticsServiceSecurityGroupBA6AE98A": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AwsDeploymentStack/AnalyticsService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "DependsOn": [
+    "AnalyticsServiceTaskTaskRole1ABB10CB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/AnalyticsService/SecurityGroup/Resource"
+   }
+  },
+  "PatientServiceTaskTaskRole4FB5B4E2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientServiceTask/TaskRole/Resource"
+   }
+  },
+  "PatientServiceTaskF865B565": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "BILLING_SERVICE_GRPC_PORT",
+        "Value": "9001"
+       },
+       {
+        "Name": "SPRING_SQL_INIT_MODE",
+        "Value": "always"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_PASSWORD",
+        "Value": "password"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_URL",
+        "Value": "jdbc:postgresql://patient-service-db:5432/db"
+       },
+       {
+        "Name": "AUTH_SERVICE_ADDRESS",
+        "Value": "http://auth-service.pm.local:4005"
+       },
+       {
+        "Name": "SPRING_JPA_HIBERNATE_DDL_AUTO",
+        "Value": "update"
+       },
+       {
+        "Name": "SPRING_DATASOURCE_USERNAME",
+        "Value": "admin_user"
+       },
+       {
+        "Name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
+        "Value": "kafka:9092"
+       },
+       {
+        "Name": "BILLING_SERVICE_ADDRESS",
+        "Value": "http://billing-service.pm.local:4001"
+       }
+      ],
+      "Essential": true,
+      "Image": "867344477207.dkr.ecr.eu-north-1.amazonaws.com/patient-service:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "PatientServiceLogGroup4A5C3809"
+        },
+        "awslogs-stream-prefix": "patient-service",
+        "awslogs-region": "eu-north-1"
+       }
+      },
+      "Name": "patient-serviceContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4000,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "512",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "PatientServiceTaskExecutionRole3782903B",
+      "Arn"
+     ]
+    },
+    "Family": "AwsDeploymentStackPatientServiceTask480DF79B",
+    "Memory": "1024",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "PatientServiceTaskTaskRole4FB5B4E2",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientServiceTask/Resource"
+   }
+  },
+  "PatientServiceTaskExecutionRole3782903B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientServiceTask/ExecutionRole/Resource"
+   }
+  },
+  "PatientServiceTaskExecutionRoleDefaultPolicy3866E91E": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "PatientServiceLogGroup4A5C3809",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "PatientServiceTaskExecutionRoleDefaultPolicy3866E91E",
+    "Roles": [
+     {
+      "Ref": "PatientServiceTaskExecutionRole3782903B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientServiceTask/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "PatientServiceLogGroup4A5C3809": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/patient-service",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientServiceLogGroup/Resource"
+   }
+  },
+  "PatientServiceA65AB800": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "PatientManagementCluster98E10F8D"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "EnableECSManagedTags": false,
+    "LaunchType": "FARGATE",
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "PatientServiceSecurityGroup547BE1F2",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+       },
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+       }
+      ]
+     }
+    },
+    "ServiceName": "patient-service",
+    "ServiceRegistries": [
+     {
+      "RegistryArn": {
+       "Fn::GetAtt": [
+        "PatientServiceCloudmapService151F234D",
+        "Arn"
+       ]
+      }
+     }
+    ],
+    "TaskDefinition": {
+     "Ref": "PatientServiceTaskF865B565"
+    }
+   },
+   "DependsOn": [
+    "AuthServiceCloudmapServiceBA6F14E5",
+    "AuthServiceSecurityGroup67F2FA7D",
+    "AuthService3C2B741A",
+    "BillingServiceCloudmapService9691C754",
+    "BillingServiceSecurityGroup3783AD35",
+    "BillingServiceFEB36D90",
+    "PatientServiceTaskTaskRole4FB5B4E2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientService/Service"
+   }
+  },
+  "PatientServiceCloudmapService151F234D": {
+   "Type": "AWS::ServiceDiscovery::Service",
+   "Properties": {
+    "DnsConfig": {
+     "DnsRecords": [
+      {
+       "TTL": 60,
+       "Type": "A"
+      }
+     ],
+     "NamespaceId": {
+      "Fn::GetAtt": [
+       "PatientManagementNamespace4B3BB235",
+       "Id"
+      ]
+     },
+     "RoutingPolicy": "MULTIVALUE"
+    },
+    "HealthCheckCustomConfig": {
+     "FailureThreshold": 1
+    },
+    "Name": "patient-service",
+    "NamespaceId": {
+     "Fn::GetAtt": [
+      "PatientManagementNamespace4B3BB235",
+      "Id"
+     ]
+    }
+   },
+   "DependsOn": [
+    "AuthServiceCloudmapServiceBA6F14E5",
+    "AuthServiceSecurityGroup67F2FA7D",
+    "AuthService3C2B741A",
+    "BillingServiceCloudmapService9691C754",
+    "BillingServiceSecurityGroup3783AD35",
+    "BillingServiceFEB36D90",
+    "PatientServiceTaskTaskRole4FB5B4E2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientService/CloudmapService/Resource"
+   }
+  },
+  "PatientServiceSecurityGroup547BE1F2": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AwsDeploymentStack/PatientService/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "DependsOn": [
+    "AuthServiceCloudmapServiceBA6F14E5",
+    "AuthServiceSecurityGroup67F2FA7D",
+    "AuthService3C2B741A",
+    "BillingServiceCloudmapService9691C754",
+    "BillingServiceSecurityGroup3783AD35",
+    "BillingServiceFEB36D90",
+    "PatientServiceTaskTaskRole4FB5B4E2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/PatientService/SecurityGroup/Resource"
+   }
+  },
+  "APIGatewayTaskDefinitionTaskRole894A199F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayTaskDefinition/TaskRole/Resource"
+   }
+  },
+  "APIGatewayTaskDefinition199BB1B7": {
+   "Type": "AWS::ECS::TaskDefinition",
+   "Properties": {
+    "ContainerDefinitions": [
+     {
+      "Environment": [
+       {
+        "Name": "SPRING_PROFILES_ACTIVE",
+        "Value": "prod"
+       },
+       {
+        "Name": "AUTH_SERVICE_URL",
+        "Value": "http://auth-service.pm.local:4005"
+       }
+      ],
+      "Essential": true,
+      "Image": "867344477207.dkr.ecr.eu-north-1.amazonaws.com/api-gateway:latest",
+      "LogConfiguration": {
+       "LogDriver": "awslogs",
+       "Options": {
+        "awslogs-group": {
+         "Ref": "ApiGatewayLogGroupA9770429"
+        },
+        "awslogs-stream-prefix": "api-gateway",
+        "awslogs-region": "eu-north-1"
+       }
+      },
+      "Name": "APIGatewayContainer",
+      "PortMappings": [
+       {
+        "ContainerPort": 4004,
+        "Protocol": "tcp"
+       }
+      ]
+     }
+    ],
+    "Cpu": "256",
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "APIGatewayTaskDefinitionExecutionRole555CBA21",
+      "Arn"
+     ]
+    },
+    "Family": "AwsDeploymentStackAPIGatewayTaskDefinitionEB3EAB10",
+    "Memory": "512",
+    "NetworkMode": "awsvpc",
+    "RequiresCompatibilities": [
+     "FARGATE"
+    ],
+    "TaskRoleArn": {
+     "Fn::GetAtt": [
+      "APIGatewayTaskDefinitionTaskRole894A199F",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayTaskDefinition/Resource"
+   }
+  },
+  "APIGatewayTaskDefinitionExecutionRole555CBA21": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ecs-tasks.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayTaskDefinition/ExecutionRole/Resource"
+   }
+  },
+  "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ApiGatewayLogGroupA9770429",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35",
+    "Roles": [
+     {
+      "Ref": "APIGatewayTaskDefinitionExecutionRole555CBA21"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayTaskDefinition/ExecutionRole/DefaultPolicy/Resource"
+   }
+  },
+  "ApiGatewayLogGroupA9770429": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/ecs/api-gateway",
+    "RetentionInDays": 7
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/ApiGatewayLogGroup/Resource"
+   }
+  },
+  "APIGatewayServiceLBDA2B7609": {
+   "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+   "Properties": {
+    "LoadBalancerAttributes": [
+     {
+      "Key": "deletion_protection.enabled",
+      "Value": "false"
+     }
+    ],
+    "Scheme": "internet-facing",
+    "SecurityGroups": [
+     {
+      "Fn::GetAtt": [
+       "APIGatewayServiceLBSecurityGroup8524BFD1",
+       "GroupId"
+      ]
+     }
+    ],
+    "Subnets": [
+     {
+      "Ref": "PatientManagementVPCPublicSubnet1SubnetC8305E9D"
+     },
+     {
+      "Ref": "PatientManagementVPCPublicSubnet2Subnet07CEC558"
+     }
+    ],
+    "Type": "application"
+   },
+   "DependsOn": [
+    "PatientManagementVPCPublicSubnet1DefaultRoute1E407ABB",
+    "PatientManagementVPCPublicSubnet1RouteTableAssociationA39A24A4",
+    "PatientManagementVPCPublicSubnet2DefaultRoute2DC1F916",
+    "PatientManagementVPCPublicSubnet2RouteTableAssociationCAC8BA09"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/LB/Resource"
+   }
+  },
+  "APIGatewayServiceLBSecurityGroup8524BFD1": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "Automatically created Security Group for ELB AwsDeploymentStackAPIGatewayServiceLB8ABFA1FE",
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow from anyone on port 80",
+      "FromPort": 80,
+      "IpProtocol": "tcp",
+      "ToPort": 80
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/LB/SecurityGroup/Resource"
+   }
+  },
+  "APIGatewayServiceLBSecurityGrouptoAwsDeploymentStackAPIGatewayServiceSecurityGroupE9A780334004DF654A31": {
+   "Type": "AWS::EC2::SecurityGroupEgress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "DestinationSecurityGroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceSecurityGroup98F3B93B",
+      "GroupId"
+     ]
+    },
+    "FromPort": 4004,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceLBSecurityGroup8524BFD1",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "ToPort": 4004
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/LB/SecurityGroup/to AwsDeploymentStackAPIGatewayServiceSecurityGroupE9A78033:4004"
+   }
+  },
+  "APIGatewayServiceLBPublicListenerD6FA7F47": {
+   "Type": "AWS::ElasticLoadBalancingV2::Listener",
+   "Properties": {
+    "DefaultActions": [
+     {
+      "TargetGroupArn": {
+       "Ref": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
+      },
+      "Type": "forward"
+     }
+    ],
+    "LoadBalancerArn": {
+     "Ref": "APIGatewayServiceLBDA2B7609"
+    },
+    "Port": 80,
+    "Protocol": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/LB/PublicListener/Resource"
+   }
+  },
+  "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70": {
+   "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+   "Properties": {
+    "Port": 80,
+    "Protocol": "HTTP",
+    "TargetGroupAttributes": [
+     {
+      "Key": "stickiness.enabled",
+      "Value": "false"
+     }
+    ],
+    "TargetType": "ip",
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/LB/PublicListener/ECSGroup/Resource"
+   }
+  },
+  "APIGatewayServiceA5206149": {
+   "Type": "AWS::ECS::Service",
+   "Properties": {
+    "Cluster": {
+     "Ref": "PatientManagementCluster98E10F8D"
+    },
+    "DeploymentConfiguration": {
+     "Alarms": {
+      "AlarmNames": [],
+      "Enable": false,
+      "Rollback": false
+     },
+     "MaximumPercent": 200,
+     "MinimumHealthyPercent": 50
+    },
+    "DesiredCount": 1,
+    "EnableECSManagedTags": false,
+    "HealthCheckGracePeriodSeconds": 60,
+    "LaunchType": "FARGATE",
+    "LoadBalancers": [
+     {
+      "ContainerName": "APIGatewayContainer",
+      "ContainerPort": 4004,
+      "TargetGroupArn": {
+       "Ref": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
+      }
+     }
+    ],
+    "NetworkConfiguration": {
+     "AwsvpcConfiguration": {
+      "AssignPublicIp": "DISABLED",
+      "SecurityGroups": [
+       {
+        "Fn::GetAtt": [
+         "APIGatewayServiceSecurityGroup98F3B93B",
+         "GroupId"
+        ]
+       }
+      ],
+      "Subnets": [
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+       },
+       {
+        "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+       }
+      ]
+     }
+    },
+    "ServiceName": "api-gateway",
+    "TaskDefinition": {
+     "Ref": "APIGatewayTaskDefinition199BB1B7"
+    }
+   },
+   "DependsOn": [
+    "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70",
+    "APIGatewayServiceLBPublicListenerD6FA7F47",
+    "APIGatewayTaskDefinitionTaskRole894A199F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/Service/Service"
+   }
+  },
+  "APIGatewayServiceSecurityGroup98F3B93B": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "AwsDeploymentStack/APIGatewayService/Service/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "PatientManagementVPC522067E7"
+    }
+   },
+   "DependsOn": [
+    "APIGatewayTaskDefinitionTaskRole894A199F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/Service/SecurityGroup/Resource"
+   }
+  },
+  "APIGatewayServiceSecurityGroupfromAwsDeploymentStackAPIGatewayServiceLBSecurityGroup4691D4E940049926839C": {
+   "Type": "AWS::EC2::SecurityGroupIngress",
+   "Properties": {
+    "Description": "Load balancer to target",
+    "FromPort": 4004,
+    "GroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceSecurityGroup98F3B93B",
+      "GroupId"
+     ]
+    },
+    "IpProtocol": "tcp",
+    "SourceSecurityGroupId": {
+     "Fn::GetAtt": [
+      "APIGatewayServiceLBSecurityGroup8524BFD1",
+      "GroupId"
+     ]
+    },
+    "ToPort": 4004
+   },
+   "DependsOn": [
+    "APIGatewayTaskDefinitionTaskRole894A199F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/APIGatewayService/Service/SecurityGroup/from AwsDeploymentStackAPIGatewayServiceLBSecurityGroup4691D4E9:4004"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/31RTU/DMAz9Lbtnge0C1zE+NIRGtSGuyE1NMcuSKnY6TVX/O2qzjwomTn5+eXbs56me3NzqyQh2PDbFZmwp181awGwU7PijQTPVzXtl1PzTvWdzlcXcklnH3KF03BmtfBR8g9zimT9zM2ZvCIS8O4k78LDIurAEeQLBHexVFqgGwXPjhRMMDk+CNMkhm4mA+dqiE7VGEwPJ/in4WPUz/Es8lAGZ/9AL1/OtQsO6mdvIgqFTHeEjhBK6rXhzj5/k6LjTb8Y7AXIYBtyhdo2hJpN8SrBVnEBBbHyNYa+bgxH3jpewRa4gVVyiLzUk2Opm5dM5+ph5S6b3L6FWWV+ybl58ebLoiPv9PyqQznvWs6qyZPrzvXgo7sCCM1j82gctsJCxHoq8V5Ar66luLleH9N8gH+qIBd1Bc8SD9zcIJcpp7EHatmqF7GNIfrxGqaK06hlquJpO9LW+GX0z0ThEJ7RFvUrxBx70YIYJAwAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "AwsDeploymentStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "APIGatewayServiceLoadBalancerDNS7C7318A3": {
+   "Value": {
+    "Fn::GetAtt": [
+     "APIGatewayServiceLBDA2B7609",
+     "DNSName"
+    ]
+   }
+  },
+  "APIGatewayServiceServiceURL95056890": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "http://",
+      {
+       "Fn::GetAtt": [
+        "APIGatewayServiceLBDA2B7609",
+        "DNSName"
+       ]
+      }
+     ]
+    ]
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

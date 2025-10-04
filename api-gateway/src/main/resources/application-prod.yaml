@@ -1,0 +1,60 @@
+server:
+  port: 4004
+
+auth:
+  service:
+    # Use the environment variable injected by the AWS CDK for the production environment
+    # The value will be injected as: http://auth-service.pm.local:4005
+    url: ${AUTH_SERVICE_URL}
+
+# The patient service URL is no longer directly needed in the API Gateway,
+# as the Gateway only routes to it via the spring.cloud.gateway.routes config.
+# However, if you had other API Gateway services calling it via a property, you would update it like this:
+# patient:
+#   service:
+#     url: http://patient-service.pm.local:4000
+
+spring:
+  cloud:
+    gateway:
+      default-filters:
+        # Apply JWT validation to all /api/** routes by default
+        - name: JwtValidation
+          args:
+            paths: "/api/**"      # only validate API routes, not Swagger
+      routes:
+
+        ### Auth Service
+        - id: auth-service-route
+          # Use the environment variable for the URI
+          uri: ${AUTH_SERVICE_URL}
+          predicates:
+            - Path=/auth/** # Client calls /auth/** -> Gateway forwards
+          filters:
+            - StripPrefix=1       # Remove /auth before forwarding
+
+        ### Patient Service
+        - id: patient-service-route
+          # The CDK must also inject the PATIENT_SERVICE_URL for this to work
+          # OR you need to use the Service Discovery Name directly (Recommended for Gateway)
+          uri: http://patient-service.pm.local:4000 # Direct Service Discovery DNS
+          predicates:
+            - Path=/api/patients/**
+          filters:
+            - StripPrefix=1       # Remove /api
+
+        ### API Docs - Patient
+        - id: api-docs-patient-route
+          uri: http://patient-service.pm.local:4000 # Direct Service Discovery DNS
+          predicates:
+            - Path=/api-docs/patients
+          filters:
+            - RewritePath=/api-docs/patients,/v3/api-docs
+
+        ### API Docs - Auth
+        - id: api-docs-auth-route
+          uri: ${AUTH_SERVICE_URL} # Use the injected env var
+          predicates:
+            - Path=/api-docs/auth
+          filters:
+            - RewritePath=/api-docs/auth,/v3/api-docs

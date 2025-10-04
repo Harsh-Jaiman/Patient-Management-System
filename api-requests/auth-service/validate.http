@@ -1,0 +1,3 @@
+### Validate refresh token
+GET http://localhost:4004/auth/validate/access
+Authorization: Bearer eyJhbGciOiJIUzadfasdfaI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckB0ZXN0LmNvbSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc1OTQxODczNywiZXhwIjoxNzU5NDIwNTM3fQ.-b9p6wy9QOILvd51vhFoAGaATPdVHNaClIhVzJk1J0c

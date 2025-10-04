@@ -1,0 +1,10 @@
+POST http://localhost:4000/patients
+Content-Type: application/json
+
+{
+  "name": "John Dexter",
+  "email": "testexample123@gmail.com",
+  "address": "123 main street dallas",
+  "dateOfBirth": "1995-09-20",
+  "registeredDate": "2024-10-29"
+}

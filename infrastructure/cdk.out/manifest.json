@@ -1,0 +1,693 @@
+{
+  "version": "39.0.0",
+  "artifacts": {
+    "AwsDeploymentStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "AwsDeploymentStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "AwsDeploymentStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://867344477207/eu-north-1",
+      "properties": {
+        "templateFile": "AwsDeploymentStack.template.json",
+        "terminationProtection": false,
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::867344477207:role/cdk-hnb659fds-deploy-role-867344477207-eu-north-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::867344477207:role/cdk-hnb659fds-cfn-exec-role-867344477207-eu-north-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-867344477207-eu-north-1/e9f63ff435f0266e46a31ed59c83bffa09dee64bad6b779b5f2920139f52ee08.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "AwsDeploymentStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::867344477207:role/cdk-hnb659fds-lookup-role-867344477207-eu-north-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "AwsDeploymentStack.assets"
+      ],
+      "metadata": {
+        "/AwsDeploymentStack/PatientManagementVPC/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPC522067E7"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet1SubnetC8305E9D"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet1RouteTableA48D3D3E"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet1RouteTableAssociationA39A24A4"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet1DefaultRoute1E407ABB"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet1EIPC113BD7F"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet1NATGatewayB9CF9F92"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet2Subnet07CEC558"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet2RouteTable391C4D34"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet2RouteTableAssociationCAC8BA09"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet2DefaultRoute2DC1F916"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet2EIP208E0C4A"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPublicSubnet2NATGateway28B0784D"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet1RouteTableE0FA4385"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet1RouteTableAssociationAA604973"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet1DefaultRouteC24DADA9"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet2RouteTableBC0C3BB6"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet2RouteTableAssociationC55EBEF2"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCPrivateSubnet2DefaultRoute98121A2D"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCIGWA0746919"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementVPC/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementVPCVPCGW1FFEFAEB"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementCluster/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementCluster98E10F8D"
+          }
+        ],
+        "/AwsDeploymentStack/PatientManagementNamespace/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientManagementNamespace4B3BB235"
+          }
+        ],
+        "/AwsDeploymentStack/AuthServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTaskTaskRoleE466B974"
+          }
+        ],
+        "/AwsDeploymentStack/AuthServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTask82E6680D"
+          }
+        ],
+        "/AwsDeploymentStack/AuthServiceTask/auth-serviceContainer": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'. [ack: @aws-cdk/aws-ecs:ecrImageRequiresPolicy]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "RepositoryImage.bind (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
+              "new ContainerDefinition (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
+              "FargateTaskDefinition.addContainer (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
+              "descriptor.value (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
+              "C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:917:24)",
+              "Kernel.invoke (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/AuthServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTaskExecutionRoleA1258495"
+          }
+        ],
+        "/AwsDeploymentStack/AuthServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceTaskExecutionRoleDefaultPolicyF20AD0D3"
+          }
+        ],
+        "/AwsDeploymentStack/AuthServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceLogGroup34125B38"
+          }
+        ],
+        "/AwsDeploymentStack/AuthService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:549:25)",
+              "Kernel.create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:219:93)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/AuthService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthService3C2B741A"
+          }
+        ],
+        "/AwsDeploymentStack/AuthService/CloudmapService/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceCloudmapServiceBA6F14E5"
+          }
+        ],
+        "/AwsDeploymentStack/AuthService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthServiceSecurityGroup67F2FA7D"
+          }
+        ],
+        "/AwsDeploymentStack/BillingServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceTaskTaskRole7A547BBF"
+          }
+        ],
+        "/AwsDeploymentStack/BillingServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceTask30D9C66E"
+          }
+        ],
+        "/AwsDeploymentStack/BillingServiceTask/billing-serviceContainer": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'. [ack: @aws-cdk/aws-ecs:ecrImageRequiresPolicy]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "RepositoryImage.bind (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
+              "new ContainerDefinition (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
+              "FargateTaskDefinition.addContainer (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
+              "descriptor.value (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
+              "C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:917:24)",
+              "Kernel.invoke (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/BillingServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceTaskExecutionRole11FE8DE2"
+          }
+        ],
+        "/AwsDeploymentStack/BillingServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceTaskExecutionRoleDefaultPolicy4F4033C9"
+          }
+        ],
+        "/AwsDeploymentStack/BillingServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceLogGroupDD61E740"
+          }
+        ],
+        "/AwsDeploymentStack/BillingService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:549:25)",
+              "Kernel.create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:219:93)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/BillingService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceFEB36D90"
+          }
+        ],
+        "/AwsDeploymentStack/BillingService/CloudmapService/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceCloudmapService9691C754"
+          }
+        ],
+        "/AwsDeploymentStack/BillingService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BillingServiceSecurityGroup3783AD35"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceTaskTaskRole1ABB10CB"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceTaskC3AFBC47"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsServiceTask/analytics-serviceContainer": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'. [ack: @aws-cdk/aws-ecs:ecrImageRequiresPolicy]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "RepositoryImage.bind (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
+              "new ContainerDefinition (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
+              "FargateTaskDefinition.addContainer (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
+              "descriptor.value (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
+              "C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:917:24)",
+              "Kernel.invoke (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceTaskExecutionRoleBAF654B2"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceTaskExecutionRoleDefaultPolicy99868928"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceLogGroupBD82F12A"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:549:25)",
+              "Kernel.create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:219:93)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceCD38C492"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsService/CloudmapService/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceCloudmapService37E505E7"
+          }
+        ],
+        "/AwsDeploymentStack/AnalyticsService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AnalyticsServiceSecurityGroupBA6AE98A"
+          }
+        ],
+        "/AwsDeploymentStack/PatientServiceTask/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceTaskTaskRole4FB5B4E2"
+          }
+        ],
+        "/AwsDeploymentStack/PatientServiceTask/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceTaskF865B565"
+          }
+        ],
+        "/AwsDeploymentStack/PatientServiceTask/patient-serviceContainer": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'. [ack: @aws-cdk/aws-ecs:ecrImageRequiresPolicy]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "RepositoryImage.bind (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
+              "new ContainerDefinition (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
+              "FargateTaskDefinition.addContainer (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
+              "descriptor.value (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
+              "C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:917:24)",
+              "Kernel.invoke (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/PatientServiceTask/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceTaskExecutionRole3782903B"
+          }
+        ],
+        "/AwsDeploymentStack/PatientServiceTask/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceTaskExecutionRoleDefaultPolicy3866E91E"
+          }
+        ],
+        "/AwsDeploymentStack/PatientServiceLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceLogGroup4A5C3809"
+          }
+        ],
+        "/AwsDeploymentStack/PatientService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "Kernel._Kernel_create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:549:25)",
+              "Kernel.create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:219:93)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/PatientService/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceA65AB800"
+          }
+        ],
+        "/AwsDeploymentStack/PatientService/CloudmapService/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceCloudmapService151F234D"
+          }
+        ],
+        "/AwsDeploymentStack/PatientService/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PatientServiceSecurityGroup547BE1F2"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayTaskDefinition/TaskRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinitionTaskRole894A199F"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayTaskDefinition/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinition199BB1B7"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayTaskDefinition/APIGatewayContainer": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "Proper policies need to be attached before pulling from ECR repository, or use 'fromEcrRepository'. [ack: @aws-cdk/aws-ecs:ecrImageRequiresPolicy]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "RepositoryImage.bind (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\images\\repository.js:1:1306)",
+              "new ContainerDefinition (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\container-definition.js:1:3147)",
+              "FargateTaskDefinition.addContainer (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\task-definition.js:1:10910)",
+              "descriptor.value (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\metadata-resource.js:1:2296)",
+              "C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:171",
+              "Kernel._Kernel_ensureSync (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:917:24)",
+              "Kernel.invoke (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:295:102)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayTaskDefinition/ExecutionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinitionExecutionRole555CBA21"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayTaskDefinition/ExecutionRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35"
+          }
+        ],
+        "/AwsDeploymentStack/ApiGatewayLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiGatewayLogGroupA9770429"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/LB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBDA2B7609"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/LB/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBSecurityGroup8524BFD1"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/LB/SecurityGroup/to AwsDeploymentStackAPIGatewayServiceSecurityGroupE9A78033:4004": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBSecurityGrouptoAwsDeploymentStackAPIGatewayServiceSecurityGroupE9A780334004DF654A31"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/LB/PublicListener/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBPublicListenerD6FA7F47"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/LB/PublicListener/ECSGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/LoadBalancerDNS": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceLoadBalancerDNS7C7318A3"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/ServiceURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceServiceURL95056890"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/Service": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "minHealthyPercent has not been configured so the default value of 50% is used. The number of running tasks will decrease below the desired count during deployments etc. See https://github.com/aws/aws-cdk/issues/31705 [ack: @aws-cdk/aws-ecs:minHealthyPercent]",
+            "trace": [
+              "Annotations.addMessage (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:1608)",
+              "Annotations.addWarningV2 (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\core\\lib\\annotations.js:1:825)",
+              "new BaseService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\base\\base-service.js:1:8100)",
+              "new FargateService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs\\lib\\fargate\\fargate-service.js:1:3551)",
+              "new ApplicationLoadBalancedFargateService (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-kernel-XEJTen\\node_modules\\aws-cdk-lib\\aws-ecs-patterns\\lib\\fargate\\application-load-balanced-fargate-service.js:1:3340)",
+              "Kernel._Kernel_create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:549:25)",
+              "Kernel.create (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:219:93)",
+              "KernelHost.processRequest (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15482:36)",
+              "KernelHost.run (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15442:22)",
+              "Immediate._onImmediate (C:\\Users\\harsh\\AppData\\Local\\Temp\\jsii-java-runtime16831222970665744824\\lib\\program.js:15443:45)",
+              "process.processImmediate (node:internal/timers:485:21)"
+            ]
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/Service/Service": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceA5206149"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/Service/SecurityGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceSecurityGroup98F3B93B"
+          }
+        ],
+        "/AwsDeploymentStack/APIGatewayService/Service/SecurityGroup/from AwsDeploymentStackAPIGatewayServiceLBSecurityGroup4691D4E9:4004": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "APIGatewayServiceSecurityGroupfromAwsDeploymentStackAPIGatewayServiceLBSecurityGroup4691D4E940049926839C"
+          }
+        ],
+        "/AwsDeploymentStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/AwsDeploymentStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/AwsDeploymentStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "AwsDeploymentStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
