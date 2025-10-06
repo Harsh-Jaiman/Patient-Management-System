@@ -1,0 +1,210 @@
+The Story of a Patient in Your System
+1. The Client Comes Knocking
+Imagine a hospital receptionist who wants to register a new patient in the system. She uses a frontend (could be a web UI, Postman, or mobile app) and sends a POST request to:
+POST http://localhost:4000/patients
+Content-Type: application/json
+
+She sends data like:
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "address": "123 Main St",
+  "dateOfBirth": "1990-01-01",
+  "registeredDate": "2025-10-01"
+}
+
+
+2. The Controller Answers the Door
+Your PatientController is like the front desk.
+It receives the request.
+
+
+Validates the fields using @Validated and the DTO rules:
+
+
+Name is not blank
+
+
+Email is valid
+
+
+Registered date is mandatory for creation
+
+
+After validation, it calls the service layer (PatientService.createPatient) to actually handle the business logic.
+
+
+Think of the controller as the polite receptionist: “I got your request, let me pass it to the manager.”
+
+3. The Service Layer Takes Over
+Now, PatientService is the manager who decides what to do with the patient data. Here’s what happens step by step:
+Check if email already exists
+
+
+If someone else already has this email in the database, we stop immediately and throw EmailAlreadyExistsException.
+
+
+Save the patient to the database
+
+
+Using PatientMapper.toModel, the DTO is converted into a Patient entity.
+
+
+patientRepository.save() persists it in the database.
+
+
+Now the patient has a unique UUID ID assigned.
+
+
+Call the Billing Service (gRPC)
+
+
+Using BillingServiceGrpcClient.createBillingAccount, your system reaches out to the Billing microservice running on a gRPC server.
+
+
+It sends the new patient’s ID, name, and email.
+
+
+Billing service creates an account (hardcoded in your example) and returns a response.
+
+
+Send a Kafka Event
+
+
+KafkaProducer.sendEvent fires a PatientEvent to the Kafka topic patient.
+
+
+This event contains patient info and an event type (Patient Created) so other microservices can react if needed (e.g., notifications, analytics, or billing processing).
+
+
+Return the Response
+
+
+Finally, the service converts the saved patient back to a PatientResponseDTO using PatientMapper.toDTO.
+
+
+The controller sends this back to the client: the patient is officially registered.
+
+
+
+4. Updating a Patient
+When the receptionist wants to update a patient:
+Controller receives a PUT request with the patient UUID.
+
+
+PatientService.updatePatient looks up the patient in the database:
+
+
+Throws PatientNotFoundException if ID doesn’t exist.
+
+
+Checks if the new email is not already used by another patient.
+
+
+Updates fields (name, email, address, date of birth).
+
+
+Saves the updated entity.
+
+
+Returns updated patient info to the client.
+
+
+Note: In your current flow, Kafka event or gRPC call is not triggered on update, but it can be added if needed.
+
+5. Deleting a Patient
+When deleting:
+Controller receives DELETE request.
+
+
+Service checks if patient exists.
+
+
+Deletes from the database.
+
+
+Returns a simple success message to the client.
+
+
+
+6. Exception Handling
+Your GlobalExceptionHandler is like a safety net:
+If validation fails (@NotBlank, @Email etc.), it sends back which fields failed.
+
+
+If email already exists, it logs a warning and returns “Email exists already”.
+
+
+If patient not found, it logs and returns “Patient not found”.
+
+
+
+7. gRPC Billing Service
+Meanwhile, the BillingService is another microservice entirely:
+Listens on gRPC port 9001.
+
+
+Receives BillingRequest from PatientService.
+
+
+Creates a new billing account (for now, hardcoded ID 12345) and status ACTIVE.
+
+
+Returns BillingResponse to PatientService.
+
+
+This is all behind the scenes, transparent to the client.
+
+8. Kafka Messaging
+After patient creation:
+KafkaProducer builds a PatientEvent (protobuf message).
+
+
+Publishes it to Kafka topic patient.
+
+
+Other microservices listening to this topic can react asynchronously:
+
+
+Send welcome emails
+
+
+Update dashboards
+
+
+Trigger insurance checks
+
+
+
+9. Database
+Patient entity saved in Postgres/MySQL/H2.
+
+
+Email is unique, ID is UUID.
+
+
+RegisteredDate, DateOfBirth, Address, Name are stored as per DTO.
+
+
+
+10. Dockerization
+Your Dockerfile first builds the jar using Maven.
+
+
+Then runs it in an OpenJDK container.
+
+
+Exposes port 4000 for PatientService API.
+
+
+This allows easy deployment and microservice scaling.
+
+In Short:
+Client → REST → Controller → Service → DB + Billing (gRPC) + Kafka → Response
+
+
+Validation and exceptions are handled along the way.
+
+
+Kafka and gRPC allow microservices communication and event-driven architecture.
+

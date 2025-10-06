@@ -1,105 +1,102 @@
-    package com.pm.authservice.controller;
-    
-    import com.pm.authservice.dto.LoginRequestDTO;
-    import com.pm.authservice.dto.LoginResponseDTO;
-    import com.pm.authservice.service.AuthService;
-    import io.swagger.v3.oas.annotations.Operation;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.*;
-    
-    import java.util.Optional;
-    
-    @RestController
-    // @RequestMapping() // Can be used to prefix all endpoints with /auth if needed
-    public class AuthController {
-    
-        private final AuthService authService; // Inject AuthService to handle business logic
-    
-        public AuthController(AuthService authService) {
-            this.authService = authService;
-        }
-    
-        /**
-         * Endpoint to login user and generate JWT tokens.
-         * @param loginRequestDTO - contains email & password from client
-         * @return ResponseEntity with access & refresh tokens if successful,
-         *         UNAUTHORIZED if credentials are wrong,
-         *         INTERNAL_SERVER_ERROR if something goes wrong on server side
-         */
-        @Operation(summary="Generate token on user login")
-        @PostMapping("/login")
-        public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-    
-            // Initialize Optional for token response
-            Optional<LoginResponseDTO> tokenOptional = Optional.empty();
-    
-            try {
-                // Call AuthService to authenticate user and generate tokens
-                tokenOptional = authService.authenticate(loginRequestDTO);
-    
-                // 1️⃣ If authentication fails (user not found or password wrong)
-                if (tokenOptional.isEmpty()) {
-                    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 401
-                }
-            } catch(Exception ex) {
-                // 2️⃣ Handle any unexpected server error
-                System.out.println("Can't authenticate the user with email " + loginRequestDTO.getEmail());
-                ex.printStackTrace();
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // 500
-            }
-    
-            // 3️⃣ Authentication successful, return tokens in body
-            return ResponseEntity.ok(tokenOptional.get());
-        }
+package com.pm.authservice.controller;
 
+import com.pm.authservice.dto.LoginRequestDTO;
+import com.pm.authservice.dto.LoginResponseDTO;
+import com.pm.authservice.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 
+@RestController
+public class AuthController {
 
+    private final AuthService authService;
+    private static final String INVALID_TOKEN_MESSAGE = "Token is invalid";
 
-        @Operation(summary = "Validate token")
-        @GetMapping("/validate/access")
-        public ResponseEntity<Void> validateToken(@RequestHeader("Authorization") String authHeader) {
-            // 1. Check if Authorization header exists and starts with "Bearer "
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                // If not present or invalid format, reject the request
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-
-            // 2. Extract only the token part (remove "Bearer " prefix → 7 characters)
-            String token = authHeader.substring(7);
-
-            // 3. Ask AuthService to validate the token
-            boolean isValid = authService.validateAccessToken(token);
-
-            // 4. If valid → return 200 OK, else → return 401 Unauthorized
-            return isValid
-                    ? ResponseEntity.ok().build()
-                    : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    
-        @Operation(summary = "Validate token")
-        @GetMapping("/validate/refresh")
-        public ResponseEntity<Void> validateRefreshToken(@RequestHeader("Authorization") String authHeader) {
-            // 1. Check if Authorization header exists and starts with "Bearer "
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                // If not present or invalid format, reject the request
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
-    
-            // 2. Extract only the token part (remove "Bearer " prefix → 7 characters)
-            String token = authHeader.substring(7);
-    
-            // 3. Ask AuthService to validate the token
-            boolean isValid = authService.validateRefreshToken(token);
-    
-            // 4. If valid → return 200 OK, else → return 401 Unauthorized
-            return isValid
-                    ? ResponseEntity.ok().build()
-                    : ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    
-    
-    
-    
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
+
+    /**
+     * Handles user login and returns JWT tokens if authentication is successful.
+     * Returns 401 if credentials are invalid, 500 for server errors.
+     */
+    @Operation(summary="Generate token on user login")
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        Optional<LoginResponseDTO> tokenOptional = Optional.empty();
+        try {
+            tokenOptional = authService.authenticate(loginRequestDTO);
+            if (tokenOptional.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            }
+        } catch(Exception ex) {
+            System.out.println("Can't authenticate the user with email " + loginRequestDTO.getEmail());
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return ResponseEntity.ok(tokenOptional.get());
+    }
+    
+
+        /**
+         * Handles user signup. Creates a new user if email is not taken, returns tokens.
+         * Returns 409 if user exists, 500 for server errors.
+         */
+        @Operation(summary = "Register a new user and generate tokens")
+        @PostMapping("/signup")
+        public ResponseEntity<LoginResponseDTO> signup(@RequestBody LoginRequestDTO signupRequestDTO) {
+            try {
+                Optional<LoginResponseDTO> signupResult = authService.signup(signupRequestDTO);
+                if (signupResult.isEmpty()) {
+                    // User already exists
+                    return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                }
+                return ResponseEntity.ok(signupResult.get());
+            } catch (Exception ex) {
+                System.out.println("Error during signup for email " + signupRequestDTO.getEmail());
+                ex.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
+    /**
+     * Validates access token from Authorization header.
+     * Returns 200 if valid, 401 if invalid or header is missing.
+     */
+
+    @Operation(summary = "Validate token")
+    @GetMapping("/validate/access")
+    public ResponseEntity<String> validateToken(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(INVALID_TOKEN_MESSAGE);
+        }
+        String token = authHeader.substring(7);
+        boolean isValid = authService.validateAccessToken(token);
+
+        return isValid
+                ? ResponseEntity.ok("Access Token validated")
+                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(INVALID_TOKEN_MESSAGE);
+    }
+
+    /**
+     * Validates refresh token from Authorization header.
+     * Returns 200 if valid, 401 if invalid or header is missing.
+     */
+    @Operation(summary = "Validate token")
+    @GetMapping("/validate/refresh")
+    public ResponseEntity<String> validateRefreshToken(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(INVALID_TOKEN_MESSAGE);
+        }
+        String token = authHeader.substring(7);
+        boolean isValid = authService.validateRefreshToken(token);
+
+        return isValid
+                ? ResponseEntity.ok("Refresh Token validated")
+                : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(INVALID_TOKEN_MESSAGE);
+    }
+}

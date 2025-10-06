@@ -14,17 +14,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // Disable CSRF protection since we are using JWT (stateless)
+        
                 .csrf(csrf -> csrf.disable())
-                // Allow all requests for now (no authentication on endpoints yet)
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth  // Allow all requests for now (no authentication on endpoints yet)
                         .anyRequest().permitAll()
                 );
 
         return http.build();
     }
 
-    // Bean to encode passwords using BCrypt
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

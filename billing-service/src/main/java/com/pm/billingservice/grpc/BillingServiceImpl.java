@@ -8,31 +8,26 @@ import billing.BillingServiceGrpc.BillingServiceImplBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@GrpcService // Marks this class as a gRPC server implementation
+@GrpcService 
 public class BillingServiceImpl extends BillingServiceImplBase {
     private static final Logger log = LoggerFactory.getLogger(BillingServiceImpl.class);
 
     /**
-     * This method is the implementation of the gRPC service defined in the proto file.
-     * - It receives a BillingRequest from the client.
-     * - It processes the request (business logic like DB operations, calculations, etc.).
-     * - It sends back a BillingResponse to the client using responseObserver.
+     * Handles createBillingRequest gRPC call.
+     * Receives a BillingRequest, processes it, and sends a BillingResponse.
      */
     @Override
     public void createBillingRequest(BillingRequest request,
-                                     StreamObserver<BillingResponse> responseObserver) {
-        log.info("createBillingAccount request received {}", request.toString());
+            StreamObserver<BillingResponse> responseObserver) {
+        log.info("createBillingRequest request received {}", request);
 
-        // Example business logic: Here we are hardcoding a response.
-        // In a real case, you would save data into DB and generate accountId dynamically.
+        // Example business logic: Hardcoded response for demonstration.
         BillingResponse response = BillingResponse.newBuilder()
-                .setAccountId("12345") // Hardcoded account ID
-                .setStatus("ACTIVE")   // Hardcoded account status
+                .setAccountId("12345")
+                .setStatus("ACTIVE")
                 .build();
 
-        // Send the response back to the client
         responseObserver.onNext(response);
-        // Mark the RPC as completed
         responseObserver.onCompleted();
     }
 }

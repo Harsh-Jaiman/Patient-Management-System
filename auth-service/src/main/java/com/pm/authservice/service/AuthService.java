@@ -12,9 +12,9 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
-    private final UserService userService;        // Service to fetch user data from DB
-    private final PasswordEncoder passwordEncoder; // To check hashed passwords
-    private final JwtUtil jwtUtil;                 // Utility to generate JWT tokens
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public AuthService(UserService userService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userService = userService;
@@ -23,56 +23,58 @@ public class AuthService {
     }
 
     /**
-     * Authenticate user credentials and generate tokens.
-     * @param loginRequestDTO contains email and password from client
-     * @return Optional containing LoginResponseDTO with access & refresh tokens if valid, empty if invalid
+     * Authenticates user credentials and generates access & refresh tokens if valid.
      */
     public Optional<LoginResponseDTO> authenticate(LoginRequestDTO loginRequestDTO) {
-
-        // 1️⃣ Find user by email in database
         return userService.findByEmail(loginRequestDTO.getEmail())
-                // 2️⃣ Check if the password provided matches the hashed password in DB
                 .filter(u -> passwordEncoder.matches(loginRequestDTO.getPassword(), u.getPassword()))
-                // 3️⃣ If user exists and password matches, generate tokens
                 .map(u -> {
-                    // Generate a short-lived access token (30 mins)
                     String accessToken = jwtUtil.generateAccessToken(u.getEmail(), u.getRole());
-
-                    // Generate a long-lived refresh token (10 days)
                     String refreshToken = jwtUtil.generateRefreshToken(u.getEmail(), u.getRole());
-
-                    // 4️⃣ Wrap both tokens in a LoginResponseDTO and return
                     return new LoginResponseDTO(accessToken, refreshToken);
                 });
+    }
 
-        // 🔹 If user not found or password mismatch, Optional will be empty
+
+    /**
+     * Registers a new user if email is not already taken, and generates tokens.
+     */
+    public Optional<LoginResponseDTO> signup(LoginRequestDTO signupRequestDTO) {
+        if (userService.findByEmail(signupRequestDTO.getEmail()).isPresent()) {
+            return Optional.empty(); // User already exists
+        }
+        // Create new user with encoded password
+        userService.createUser(signupRequestDTO.getEmail(),
+                passwordEncoder.encode(signupRequestDTO.getPassword()), "USER");
+
+        // Authenticate the newly created user to generate tokens
+        String accessToken = jwtUtil.generateAccessToken(signupRequestDTO.getEmail(), "USER");
+        String refreshToken = jwtUtil.generateRefreshToken(signupRequestDTO.getEmail(), "USER");
+
+        return  Optional.of(new LoginResponseDTO(accessToken, refreshToken));
     }
 
     /**
-     * Token validation is corrected: it returns true only if JwtUtil completes without throwing an exception.
+     * Validates the access token using JwtUtil. Returns true if valid, false otherwise.
      */
-    public boolean validateAccessToken(String token) {
+    public boolean validateAccessToken(String token){
         try {
-            // Call JwtUtil to check token validity. This will now throw JwtException on failure.
             jwtUtil.validateAccessToken(token);
-            return true; // If no exception, token is valid
+            return true;
         } catch (JwtException jwtException) {
-            // If any issue (expired, tampered, invalid signature), return false
             System.out.println("Access Token validation failed: " + jwtException.getMessage());
             return false;
         }
     }
 
     /**
-     * Token validation is corrected: it returns true only if JwtUtil completes without throwing an exception.
+     * Validates the refresh token using JwtUtil. Returns true if valid, false otherwise.
      */
     public boolean validateRefreshToken(String token){
         try {
-            // Call JwtUtil to check token validity. This will now throw JwtException on failure.
             jwtUtil.validateRefreshToken(token);
-            return true; // If no exception, token is valid
+            return true;
         } catch (JwtException jwtException) {
-            // If any issue (expired, tampered, invalid signature), return false
             System.out.println("Refresh Token validation failed: " + jwtException.getMessage());
             return false;
         }

@@ -8,20 +8,30 @@ auth:
 spring:
   cloud:
     gateway:
-      # Recommended prefix for the reactive (WebFlux) Gateway
       routes:
 
-        ###http://localhost:4004/auth/login
-        ### API GATEWAY--> http://auth-service:4005/login
-        - id: auth-service-route
+        ### 1. AUTH SERVICE - PUBLIC ENDPOINTS (No JWT Validation)
+        - id: auth-public-route
           uri: http://auth-service:4005
           predicates:
+            # Signup and LogIn must be public
+            - Path=/auth/signup,/auth/login
+          filters:
+            # Strip /auth off the URL before sending to the microservice
+            - StripPrefix=1
+
+        ### 2. AUTH SERVICE - PROTECTED ENDPOINTS (JWT Validation Applied)
+        # This route comes immediately after the public one. It catches everything else
+        - id: auth-protected-route
+          uri: http://auth-service:4005
+          predicates:
+            # Catch all remaining paths under /auth/
             - Path=/auth/**
           filters:
             - StripPrefix=1
-        #REST CLIENT -> http://localhost:4004/api/patients
-        #API GATEWAY -> http://patient-service:4000/patients
-        #PATIENT SERVICE (SPRING BOOT APP) -> /patients -> Patients Array
+            - JwtValidation # All other /auth/ paths are intercepted and validated
+
+        ### 3. Patient Service - other endpoints (JWT protected)
         - id: patient-service-route
           uri: http://patient-service:4000
           predicates:
@@ -30,8 +40,7 @@ spring:
             - StripPrefix=1
             - JwtValidation
 
-        #REST CLIENT -> http://localhost:4004/api-docs/patients
-        #API GATEWAY -> http://patient-service:4000/v3/api-docs
+        ### 4. API Docs - Patient
         - id: api-docs-patient-route
           uri: http://patient-service:4000
           predicates:
@@ -39,6 +48,7 @@ spring:
           filters:
             - RewritePath=/api-docs/patients,/v3/api-docs
 
+        ### 5. API Docs - Auth
         - id: api-docs-auth-route
           uri: http://auth-service:4005
           predicates:

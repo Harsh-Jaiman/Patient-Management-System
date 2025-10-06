@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * Gateway filter for validating JWT Access Tokens
+ * Gateway filter for validating JWT Access Tokens.
  * This filter checks requests for Authorization header,
  * calls AuthService /validate/access endpoint, and blocks unauthorized requests.
  * Refresh tokens are not validated here; they should be used directly by clients.
@@ -19,44 +19,46 @@ public class JwtValidationGatewayFilterFactory extends AbstractGatewayFilterFact
 
     private final WebClient webClient;
 
-    // Inject WebClient and AuthService URL
+    /**
+     * Constructor that injects WebClient and AuthService URL.
+     */
     public JwtValidationGatewayFilterFactory(WebClient.Builder webClientBuilder,
                                              @Value("${auth.service.url}") String authServiceUrl
     ) {
         this.webClient = webClientBuilder.baseUrl(authServiceUrl).build();
     }
 
+    /**
+     * Applies the JWT validation filter.
+     * - Extracts the Authorization header from the request.
+     * - Rejects the request if the header is missing or not in "Bearer <token>" format.
+     * - Calls AuthService `/validate/access` endpoint to validate the access token.
+     * - If AuthService returns 200, the request proceeds; otherwise, responds with 401 Unauthorized.
+     * - Handles exceptions by responding with 401 Unauthorized.
+     */
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
-
-            // 1️⃣ Extract Authorization header
             String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
-            // 2️⃣ If missing or not in "Bearer <token>" format → reject
             if (token == null || !token.startsWith("Bearer ")) {
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
 
-            // 3️⃣ Call AuthService to validate access token
-            //    Note: We are calling `/validate/access` endpoint
             return webClient.get()
-                    .uri("/validate/access") // only access token validation
+                    .uri("/validate/access")
                     .header(HttpHeaders.AUTHORIZATION, token)
                     .retrieve()
                     .toBodilessEntity()
                     .flatMap(response -> {
-                        // 4️⃣ If AuthService returns 200 → continue request
                         if (response.getStatusCode().is2xxSuccessful()) {
                             return chain.filter(exchange);
                         } else {
-                            // 5️⃣ If token invalid → return 401
                             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                             return exchange.getResponse().setComplete();
                         }
                     })
-                    // 6️⃣ Handle exceptions (network/server errors)
                     .onErrorResume(ex -> {
                         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                         return exchange.getResponse().setComplete();

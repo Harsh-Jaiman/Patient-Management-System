@@ -1,5 +1,0 @@
-{
-  "app": "java -cp target/cdk-app-deploy.jar com.pm.stack.MainApp"
-}
-
-

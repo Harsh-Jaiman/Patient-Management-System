@@ -1,0 +1,13 @@
+syntax="proto3";
+
+package patient.events;   // Generated Java classes package
+
+option java_multiple_files = true;  // Each message generates separate Java class
+
+// Event published when a patient is created/updated
+message PatientEvent {
+  string patientId = 1; // Patient ID
+  string name = 2;      // Patient Name
+  string email = 3;     // Patient Email
+  string event_type = 4; // Event type, e.g., "Patient Created"
+}

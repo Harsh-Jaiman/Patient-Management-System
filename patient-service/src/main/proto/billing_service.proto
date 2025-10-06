@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option java_multiple_files = true;   // Each message/service generates separate Java class
+option java_package = "billing";     // Generated Java classes package
+
+service BillingService {
+  // RPC method: client sends a BillingRequest, server responds with BillingResponse
+  rpc CreateBillingRequest (BillingRequest) returns (BillingResponse);
+}
+
+// Request message definition
+message BillingRequest {
+  string patientId = 1; 
+  string name = 2;      
+  string email = 3;     
+}
+
+// Response message definition
+message BillingResponse {
+  string accountId = 1;
+  string status = 2;    // Status of the billing account (e.g., ACTIVE, PENDING)
+}

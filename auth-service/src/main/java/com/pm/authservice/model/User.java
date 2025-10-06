@@ -9,18 +9,18 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;  // Unique ID for each user
+    private UUID id;
 
     @Column(unique = true, nullable = false)
-    private String email; // User email, must be unique
+    private String email;
 
     @Column(nullable = false)
-    private String password; // Hashed password
+    private String password;
 
     @Column(nullable = false)
-    private String role; // User role (e.g., ADMIN, USER)
+    private String role;
 
-    // Getters and Setters for all fields
+
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
     public String getEmail() { return email; }

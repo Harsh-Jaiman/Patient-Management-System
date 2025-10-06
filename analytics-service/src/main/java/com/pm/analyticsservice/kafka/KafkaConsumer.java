@@ -10,25 +10,26 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 import patient.events.PatientEvent;
 
-@Service
+@Service // Marks this class as a Spring service component
 public class KafkaConsumer {
 
-    private static final Logger log = LoggerFactory.getLogger(KafkaConsumer.class);
+    private static final Logger log = LoggerFactory.getLogger(KafkaConsumer.class); // Logger for this class
 
     @KafkaListener(
             topics = "patient",
             groupId = "analytics-service",
-            containerFactory = "kafkaListenerContainerFactory"
+            containerFactory = "kafkaListenerContainerFactory" 
     )
     public void consumerEvent(
             @Payload byte[] event,
-            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
+            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition, 
             @Header(KafkaHeaders.OFFSET) long offset
     ){
         try {
-            // Deserialize Protobuf
+            // Deserialize the byte array to a PatientEvent object using Protobuf
             PatientEvent patientEvent = PatientEvent.parseFrom(event);
 
+    
             log.info("Received patient event: [PatientId={}, PatientName={}, PatientEmail={}] from partition={}, offset={}",
                     patientEvent.getPatientId(),
                     patientEvent.getName(),
@@ -38,6 +39,7 @@ public class KafkaConsumer {
             );
 
         } catch (InvalidProtocolBufferException e) {
+            // Log an error if deserialization fails
             log.error("Error de-serializing event: {}", e.getMessage(), e);
         }
     }

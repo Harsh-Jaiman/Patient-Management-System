@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PatientManagement.iml" filepath="$PROJECT_DIR$/PatientManagement.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PatientService/PatientService.iml" filepath="$PROJECT_DIR$/PatientService/PatientService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/analytics-service/analytics-service.iml" filepath="$PROJECT_DIR$/analytics-service/analytics-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/billing-service/billing-service.iml" filepath="$PROJECT_DIR$/billing-service/billing-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/patient-service/PatientService.iml" filepath="$PROJECT_DIR$/patient-service/PatientService.iml" />
     </modules>
   </component>
 </project>
